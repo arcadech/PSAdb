@@ -74,7 +74,7 @@ C:\PS> $Item.properties.psobject.properties.remove("vc_username")
 C:\PS> 
 C:\PS> # Validate new item
 C:\PS> $Item | Test-AdbItemValidation -Template "nextcloud" -Verbose
-DEBUG: Validation passed
+VERBOSE: Validation passed
 C:\PS>
 C:\PS> # Save updated item
 C:\PS> $Item | Save-AdbRessource
