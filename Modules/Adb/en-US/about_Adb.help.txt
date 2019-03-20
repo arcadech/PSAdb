@@ -1,0 +1,14 @@
+
+TOPIC
+    about_Adb
+
+SHORT DESCRIPTION
+    PowerShell Module wrapping the REST API of the adb.
+
+LONG DESCRIPTION
+    To get more information about this module, check the open source GitHub
+    repository readme or the cmdlet based help for the module functions:
+
+LINK
+    https://github.com/arcadesolutionsag/PSAdb
+    https://github.com/arcadesolutionsag/adb
