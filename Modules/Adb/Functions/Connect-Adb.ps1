@@ -58,19 +58,17 @@ function Connect-Adb
             $script:AdbConnection = $Connection
             return $Connection
         }
-        process {
-            $Uri = "${Url}/api/v1/users/login"
-            $Body = @{
-                name = $Credential.UserName
-                password = $Credential.GetNetworkCredential().Password
-            }
-            try{
-                $Response = Invoke-RestMethod -Uri $Uri -Method "POST" -Body $Body
-                $Connection = New-AdbConnection -Url $Url -Token $Response.data.token.token
-                $script:AdbConnection = $Connection
-                return $Connection
-            } catch {
-                throw $_.Exception
-            }
+        $Uri = "${Url}/api/v1/users/login"
+        $Body = @{
+            name = $Credential.UserName
+            password = $Credential.GetNetworkCredential().Password
+        }
+        try{
+            $Response = Invoke-RestMethod -Uri $Uri -Method "POST" -Body $Body
+            $Connection = New-AdbConnection -Url $Url -Token $Response.data.token.token
+            $script:AdbConnection = $Connection
+            return $Connection
+        } catch {
+            throw $_.Exception
         }
     }
