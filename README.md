@@ -5,6 +5,7 @@ ADB Powershell Module
 ADB REST API Powershell Module Wrapper
 
 # Commands
+* New-AdbConnection: Create a connection object based on given url and token, can be used for subsequent queries. Connection object is returned and saved in the session.
 * Connect-Adb: Create a connection object based on given url and credentials, can be used for subsequent queries. Connection object is returned and saved in the session.
 * Disconnect-Adb: Logout from adb (either using the given connection or the one stored in the session)
 * Get-AdbOwnUser: Query own user
@@ -16,7 +17,11 @@ ADB REST API Powershell Module Wrapper
 
 # Usage examples
 ```powershell
-C:\PS> # Connect to adb
+C:\PS> # A connection can be either created by providing credentials or by passing a token
+C:\PS> # either way, a connection object is returned, while the connection is also stored in the session (current ps window)
+C:\PS> # A)
+C:\PS> $Connection = New-AdbConnection -Url "https://adb.arcade.ch" -Token "XXXXXXXXX"
+C:\PS> # or B)
 C:\PS> $Credential = Get-Credential
 C:\PS> $Connection = Connect-Adb -Url "https://adb.arcade.ch" -Credential $Credential
 C:\PS> $Connection
@@ -27,7 +32,7 @@ Url                            https://adb.arcade.ch
 Headers                        {x-auth-token}
 
 C:\PS> # To login as guest, just omit the Credential parameter
-C:\PS> Connect-Adb  -Url https://adb.arcade.ch
+C:\PS> New-AdbConnection -Url https://adb.arcade.ch
 
 Name                           Value
 ----                           -----
