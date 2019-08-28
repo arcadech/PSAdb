@@ -1,10 +1,18 @@
+# Adb PowerShell Module
 
-ADB Powershell Module
-======================
+[![PowerShell Gallery - psadb](https://img.shields.io/badge/PowerShell_Gallery-psadb-0072C6.svg)](https://www.powershellgallery.com/packages/psadb)
+[![GitHub - Release](https://img.shields.io/github/release/arcadesolutionsag/psadb.svg)](https://github.com/arcadesolutionsag/psadb/releases)
+[![AppVeyor - master](https://img.shields.io/appveyor/ci/claudiospizzi/psadb/master.svg)](https://ci.appveyor.com/project/claudiospizzi/psadb/branch/master)
+[![AppVeyor - dev](https://img.shields.io/appveyor/ci/claudiospizzi/psadb/dev.svg)](https://ci.appveyor.com/project/arcadesolutionsag/psadb/branch/dev)
 
-ADB REST API Powershell Module Wrapper
+## Introduction
 
-# Commands
+This PowerShell Module is a wrapper for the ADB REST api.
+
+## Features
+
+### Functions
+
 * New-AdbConnection: Create a connection object based on given url and token, can be used for subsequent queries. Connection object is returned and saved in the session.
 * Connect-Adb: Create a connection object based on given url and credentials, can be used for subsequent queries. Connection object is returned and saved in the session.
 * Disconnect-Adb: Logout from adb (either using the given connection or the one stored in the session)
@@ -15,31 +23,30 @@ ADB REST API Powershell Module Wrapper
 * Save-AdbRessource: update or create adb ressource
 * Test-AdbItemValidation: validate item for template, either by providing the item object or the item's name
 
-# Usage examples
+### Examples
+
+#### Connections
+
+A connection can be either created by providing credentials or by passing a
+token. Either way, a connection object is returned, while the connection is also
+stored in the session. Guest connections without any authentication are also
+supported.
+
 ```powershell
-C:\PS> # A connection can be either created by providing credentials or by passing a token
-C:\PS> # either way, a connection object is returned, while the connection is also stored in the session (current ps window)
-C:\PS> # A)
-C:\PS> $Connection = New-AdbConnection -Url "https://adb.arcade.ch" -Token "XXXXXXXXX"
-C:\PS> # or B)
-C:\PS> $Credential = Get-Credential
-C:\PS> $Connection = Connect-Adb -Url "https://adb.arcade.ch" -Credential $Credential
-C:\PS> $Connection
+# Token-based connection
+$connection = New-AdbConnection -Url 'https://adb.contoso.com' -Token 'XXX'
 
-Name                           Value
-----                           -----
-Url                            https://adb.arcade.ch
-Headers                        {x-auth-token}
+# Credential-based connection
+$credential = Get-Credential
+$connection = Connect-Adb -Url 'https://adb.contoso.com' -Credential $credential
 
-C:\PS> # To login as guest, just omit the Credential parameter
-C:\PS> New-AdbConnection -Url https://adb.arcade.ch
+# Using Adb as a guest, omitting the Credential parameter
+New-AdbConnection -Url 'https://adb.contoso.com'
+```
 
-Name                           Value
-----                           -----
-Url                            https://adb.arcade.ch
-Headers                        {}
 
-C:\PS>
+
+```
 C:\PS> # Query own adb user
 C:\PS>Get-AdbOwnUser
 
@@ -97,8 +104,62 @@ C:\PS> # the Get-AdbRessource, Save-AdbRessource, Remove-AdbRessource
 C:\PS> # can be used for items, properties, templates, users
 ```
 
-# License
-MIT
 
-# Author
-arcade solutions ag - Raphael Bicker <raphael.bicker@arcade.ch>
+## Versions
+
+Please find all versions in the [GitHub Releases] section and the release notes
+in the [CHANGELOG.md] file.
+
+## Installation
+
+Use the following command to install the module from the [PowerShell Gallery],
+if the PackageManagement and PowerShellGet modules are available:
+
+```powershell
+# Download and install the module
+Install-Module -Name 'psadb'
+```
+
+Alternatively, download the latest release from GitHub and install the module
+manually on your local system:
+
+1. Download the latest release from GitHub as a ZIP file: [GitHub Releases]
+2. Extract the module and install it: [Installing a PowerShell Module]
+
+## Requirements
+
+The following minimum requirements are necessary to use this module, or in other
+words are used to test this module:
+
+* Windows PowerShell 5.1
+* Windows Server 2012 R2
+
+## Contribute
+
+Please feel free to contribute by opening new issues or providing pull requests.
+For the best development experience, open this project as a folder in Visual
+Studio Code and ensure that the PowerShell extension is installed.
+
+* [Visual Studio Code] with the [PowerShell Extension]
+* [Pester], [PSScriptAnalyzer] and [psake] PowerShell Modules
+
+[PowerShell Gallery]: https://www.powershellgallery.com/packages/SecurityFever
+[GitHub Releases]: https://github.com/claudiospizzi/SecurityFever/releases
+[Installing a PowerShell Module]: https://msdn.microsoft.com/en-us/library/dd878350
+
+[CHANGELOG.md]: CHANGELOG.md
+
+[Visual Studio Code]: https://code.visualstudio.com/
+[PowerShell Extension]: https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell
+[Pester]: https://www.powershellgallery.com/packages/Pester
+[PSScriptAnalyzer]: https://www.powershellgallery.com/packages/PSScriptAnalyzer
+[psake]: https://www.powershellgallery.com/packages/psake
+
+
+
+
+
+
+
+
+
