@@ -3,7 +3,7 @@ TOPIC
     about_Adb
 
 SHORT DESCRIPTION
-    PowerShell Module wrapping the REST API of the adb.
+    This PowerShell Module is a wrapper for the ADB REST api.
 
 LONG DESCRIPTION
     To get more information about this module, check the open source GitHub
