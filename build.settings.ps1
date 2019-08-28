@@ -5,9 +5,9 @@ Properties {
     $ModuleMerge    = $false
 
     $GalleryEnabled = $true
-    $GalleryKey     = Use-VaultSecureString -TargetName 'PowerShell Gallery Key'
+    $GalleryKey     = Use-VaultSecureString -TargetName 'PowerShell Gallery Key (arcadesolutionsag)'
 
     $GitHubEnabled  = $true
     $GitHubRepoName = 'arcadesolutionsag/PSAdb'
-    $GitHubToken    = Use-VaultSecureString -TargetName 'GitHub Token'
+    $GitHubToken    = Use-VaultSecureString -TargetName 'GitHub Token (arcadesolutionsag)'
 }
