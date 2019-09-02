@@ -1,9 +1,9 @@
 # Adb PowerShell Module
 
-[![PowerShell Gallery - psadb](https://img.shields.io/badge/PowerShell_Gallery-psadb-0072C6.svg)](https://www.powershellgallery.com/packages/psadb)
-[![GitHub - Release](https://img.shields.io/github/release/arcadesolutionsag/psadb.svg)](https://github.com/arcadesolutionsag/psadb/releases)
-[![AppVeyor - master](https://img.shields.io/appveyor/ci/claudiospizzi/psadb/master.svg)](https://ci.appveyor.com/project/claudiospizzi/psadb/branch/master)
-[![AppVeyor - dev](https://img.shields.io/appveyor/ci/claudiospizzi/psadb/dev.svg)](https://ci.appveyor.com/project/arcadesolutionsag/psadb/branch/dev)
+[![PowerShell Gallery - PSAdb](https://img.shields.io/badge/PowerShell_Gallery-PSAdb-0072C6.svg)](https://www.powershellgallery.com/packages/PSAdb)
+[![GitHub - Release](https://img.shields.io/github/release/arcadesolutionsag/PSAdb.svg)](https://github.com/arcadesolutionsag/PSAdb/releases)
+[![AppVeyor - master](https://img.shields.io/appveyor/ci/claudiospizzi/PSAdb/master.svg)](https://ci.appveyor.com/project/claudiospizzi/PSAdb/branch/master)
+[![AppVeyor - dev](https://img.shields.io/appveyor/ci/claudiospizzi/PSAdb/dev.svg)](https://ci.appveyor.com/project/arcadesolutionsag/PSAdb/branch/dev)
 
 ## Introduction
 
@@ -13,38 +13,58 @@ This PowerShell Module is a wrapper for the ADB REST api.
 
 ### Functions
 
-* New-AdbConnection: Create a connection object based on given url and token, can be used for subsequent queries. Connection object is returned and saved in the session.
-* Connect-Adb: Create a connection object based on given url and credentials, can be used for subsequent queries. Connection object is returned and saved in the session.
-* Disconnect-Adb: Logout from adb (either using the given connection or the one stored in the session)
-* Get-AdbOwnUser: Query own user
-* Get-AdbRessource: Query ADB ressources. Supported types: items, properties, templates, users
-* Get-AdbItem: Alias for querying adb ressources of type items
+* **Connect-AdbServer**  
+  Login to the adb server. The session is stored in the module context and is
+  returned as a session object if required.
+
+* **Disconnect-AdbServer**  
+  Logout from the adb server. Clear the session in the module context.
+
+* **Get-AdbRessource**  
+  Generic command to get an adb documents.
+
+* **Get-AdbUser**  
+  Get the current adb user.
+
+* **Get-AdbItem**  
+  Get an item from the adb.
+
+#### ToDo
+
 * Remove-AdbRessource: Delete an adb ressource
 * Save-AdbRessource: update or create adb ressource
 * Test-AdbItemValidation: validate item for template, either by providing the item object or the item's name
 
 ### Examples
 
-#### Connections
+#### Sessions
 
-A connection can be either created by providing credentials or by passing a
-token. Either way, a connection object is returned, while the connection is also
-stored in the session. Guest connections without any authentication are also
-supported.
+A session can be created by providing credentials, passing a token or requesting
+access from an active user. By omitting any login information and using the
+`-Guest` parameter, access is limited to guest information.
 
 ```powershell
-# Token-based connection
-$connection = New-AdbConnection -Url 'https://adb.contoso.com' -Token 'XXX'
+# Connect to the adb server by using username and password
+Connect-AdbServer -Uri 'https://adb.contoso.com' -Credential 'john'
 
-# Credential-based connection
-$credential = Get-Credential
-$connection = Connect-Adb -Url 'https://adb.contoso.com' -Credential $credential
+# Connect to the adb server by using an existing token
+Connect-AdbServer -Uri 'https://adb.contoso.com' -Token 'XXX'
 
-# Using Adb as a guest, omitting the Credential parameter
-New-AdbConnection -Url 'https://adb.contoso.com'
+# Request access from the user john
+Connect-AdbServer -Uri 'https://adb.contoso.com' -UserRequest 'john'
+
+# Access the adb as a guest user
+Connect-AdbServer -Uri 'https://adb.contoso.com' -Guest
+
+# Store the adb session in a variable
+$adbSession = Connect-AdbServer -Uri 'https://adb.contoso.com' -Credential 'john' -PassThru
+
+# Logoff from the session stored in the module context
+Disconnect-AdbServer
+
+# Logoff from the specified session.
+Disconnect-AdbServer -Session $adbSession
 ```
-
-
 
 ```
 C:\PS> # Query own adb user
@@ -104,7 +124,6 @@ C:\PS> # the Get-AdbRessource, Save-AdbRessource, Remove-AdbRessource
 C:\PS> # can be used for items, properties, templates, users
 ```
 
-
 ## Versions
 
 Please find all versions in the [GitHub Releases] section and the release notes
@@ -117,7 +136,7 @@ if the PackageManagement and PowerShellGet modules are available:
 
 ```powershell
 # Download and install the module
-Install-Module -Name 'psadb'
+Install-Module -Name 'PSAdb'
 ```
 
 Alternatively, download the latest release from GitHub and install the module
