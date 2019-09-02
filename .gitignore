@@ -1,3 +1,6 @@
 # Ignore project files
 /bin/
 /tst/
+
+# Ignore internal integration tests
+/Modules/Adb/Tests/Integration/Arcade.Tests.ps1
