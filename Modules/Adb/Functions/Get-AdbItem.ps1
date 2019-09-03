@@ -1,29 +1,51 @@
-
-function Get-AdbItem {
-    <#
+<#
     .SYNOPSIS
-
-    get adb item(s)
+        Get an item from the adb.
 
     .DESCRIPTION
+        Reutrn a custom object with the adb user and token information.
+#>
+function Get-AdbItem
+{
+    [CmdletBinding()]
+    param
+    (
+        # The adb session.
+        [Parameter(Mandatory = $false)]
+        [PSTypeName('Adb.Session')]
+        [System.Object]
+        $Session,
 
-    alias for Get-AdbRessource -Type "items"
+        # The resource name.
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-    #>
-        param(
-            [Parameter(ValueFromPipeline=$true)]
-            [Object]$Connection,
-            [String]$Name,
-            [String]$FilterName,
-            [String]$Query,
-            [String]$Fields,
-            [Int]$Limit = 10,
-            [Int]$Skip,
-            [Switch] $All
-        )
-        process {
-            $Params = $PSBoundParameters
-            $Params.Add("Type", "Items")
-            Get-AdbRessource @Params
-        }
-    }
+        # Specify how the items are sort.
+        [Parameter(Mandatory = $false)]
+        [System.String]
+        $Filter,
+
+        # Specify how the items are sort.
+        [Parameter(Mandatory = $false)]
+        [System.String]
+        $Sort,
+
+        # Specified the fields to return.
+        [Parameter(Mandatory = $false)]
+        [System.String[]]
+        $Field,
+
+        # Option to limit the number of return objects.
+        [Parameter(Mandatory = $false)]
+        [System.Int32]
+        $Limit,
+
+        # Option to skip the specified number of first objects.
+        [Parameter(Mandatory = $false)]
+        [System.Int32]
+        $Skip
+    )
+
+    Get-AdbResource -Type 'Item' @PSBoundParameters
+}

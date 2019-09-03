@@ -33,4 +33,7 @@ Split-Path -Path $PSCommandPath |
 #endregion Module Loader
 
 #region Module Configuration
+
+$Script:AdbConnection = $null
+
 #endregion Module Configuration
