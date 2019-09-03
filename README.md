@@ -43,8 +43,6 @@ This PowerShell Module is a wrapper for the ADB REST api.
 
 ### Examples
 
-#### Sessions
-
 A session can be created by providing credentials, passing a token or requesting
 access from an active user. By omitting any login information and using the
 `-Guest` parameter, access is limited to guest information.
@@ -177,12 +175,3 @@ Studio Code and ensure that the PowerShell extension is installed.
 [Pester]: https://www.powershellgallery.com/packages/Pester
 [PSScriptAnalyzer]: https://www.powershellgallery.com/packages/PSScriptAnalyzer
 [psake]: https://www.powershellgallery.com/packages/psake
-
-
-
-
-
-
-
-
-
