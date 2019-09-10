@@ -27,7 +27,6 @@ function New-AdbResource
 
         # The resource object.
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [PSTypeName('Adb.Resource')]
         [System.Object[]]
         $Resource,
 
