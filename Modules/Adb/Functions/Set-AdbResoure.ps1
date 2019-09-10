@@ -48,7 +48,17 @@ function Set-AdbResource
 
                 $uri = '{0}/{1}/{2}?upsert=0&patch=0' -f $Session.Uri, $currentResource._type, $currentResource.Name
 
-                $body = $currentResource | ConvertTo-Json
+                # Define a new object only with the required propreties
+                $newResource = [PSCustomObject] @{
+                    name          = $currentResource.name
+                    templateName  = $currentResource.templateName
+                    properties    = $currentResource.properties
+                    childrenNames = $currentResource.childrenNames
+                    parentsNames  = $currentResource.parentsNames
+                    decryptFor    = $currentResource.decryptFor
+                }
+
+                $body = $newResource | ConvertTo-Json
 
                 $requestSplat = Get-AdbSessionRequestSplat -Session $Session -Method 'Put'
                 Invoke-RestMethod @requestSplat -Uri $Uri -Body $body -ErrorAction Stop | Out-Null
