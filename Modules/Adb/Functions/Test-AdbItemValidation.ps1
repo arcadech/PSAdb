@@ -32,7 +32,13 @@ function Test-AdbItemValidation
         # Item name to validate.
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [System.String[]]
-        $Name
+        $Name,
+
+        # If specified, no result object is returned. If the item is valid,
+        # nothing is returned. If the item is invalid, a error is thrown.
+        [Parameter(Mandatory = $false)]
+        [switch]
+        $Quiet
     )
 
     begin
@@ -51,13 +57,38 @@ function Test-AdbItemValidation
                 $uri = '{0}/templates/{1}/validate/{2}' -f $Session.Uri, $Template, $currentName
 
                 $requestSplat = Get-AdbSessionRequestSplat -Session $Session -Method 'Get'
-                $result = Invoke-RestMethod @requestSplat -Uri $Uri -ErrorAction Stop
+                Invoke-RestMethod @requestSplat -Uri $Uri -ErrorAction Stop | Out-Null
 
-                Write-Output $result
+                $result = [PSCustomObject] @{
+                    Result  = $true
+                    Message = ''
+                }
             }
             catch
             {
-                throw $_
+                $errorMessage = $_.ErrorDetails.Message | ConvertFrom-Json | Select-Object -ExpandProperty 'error'
+
+                if ([System.String]::IsNullOrEmpty($errorMessage))
+                {
+                    $errorMessage = $_.ErrorDetails.Message
+                }
+
+                $result = [PSCustomObject] @{
+                    Result  = $false
+                    Message = $errorMessage
+                }
+            }
+
+            if ($Quiet.IsPresent)
+            {
+                if (-not $result.Result)
+                {
+                    throw $result.Message
+                }
+            }
+            else
+            {
+                Write-Output $result
             }
         }
     }
