@@ -85,7 +85,7 @@ function Get-AdbResource
         {
             if ($PSBoundParameters.ContainsKey('Name'))
             {
-                $uri = '{0}/{1}/{2}' -f $Session.Uri, $adbType, $Name
+                $uri = '{0}/{1}/{2}' -f $Session.Uri, $adbType, $currentName
             }
             else
             {
