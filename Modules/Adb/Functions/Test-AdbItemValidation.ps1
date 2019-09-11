@@ -60,8 +60,9 @@ function Test-AdbItemValidation
                 Invoke-RestMethod @requestSplat -Uri $Uri -ErrorAction Stop | Out-Null
 
                 $result = [PSCustomObject] @{
-                    Result  = $true
-                    Message = ''
+                    Result     = $true
+                    Message    = ''
+                    Violations = @()
                 }
             }
             catch
@@ -73,9 +74,11 @@ function Test-AdbItemValidation
                     $errorMessage = $_.ErrorDetails.Message
                 }
 
+
                 $result = [PSCustomObject] @{
-                    Result  = $false
-                    Message = $errorMessage
+                    Result     = $false
+                    Message    = $errorMessage
+                    Violations = $errorMessage.Split(([System.String[]] ', '), [System.StringSplitOptions]::None)
                 }
             }
 
