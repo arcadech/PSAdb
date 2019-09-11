@@ -74,7 +74,6 @@ function Test-AdbItemValidation
                     $errorMessage = $_.ErrorDetails.Message
                 }
 
-
                 $result = [PSCustomObject] @{
                     Result     = $false
                     Message    = $errorMessage
