@@ -1,6 +1,6 @@
 # Adb PowerShell Module
 
-[![PowerShell Gallery - PSAdb](https://img.shields.io/badge/PowerShell_Gallery-PSAdb-0072C6.svg)](https://www.powershellgallery.com/packages/PSAdb)
+[![PowerShell Gallery - Adb](https://img.shields.io/badge/PowerShell_Gallery-Adb-0072C6.svg)](https://www.powershellgallery.com/packages/Adb)
 [![GitHub - Release](https://img.shields.io/github/release/arcadesolutionsag/PSAdb.svg)](https://github.com/arcadesolutionsag/PSAdb/releases)
 [![AppVeyor - master](https://img.shields.io/appveyor/ci/claudiospizzi/PSAdb/master.svg)](https://ci.appveyor.com/project/claudiospizzi/PSAdb/branch/master)
 
