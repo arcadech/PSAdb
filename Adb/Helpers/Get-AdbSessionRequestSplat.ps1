@@ -5,6 +5,7 @@
 function Get-AdbSessionRequestSplat
 {
     [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         # The adb session to test.
