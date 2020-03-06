@@ -11,4 +11,4 @@
 **/packages/*
 
 # Ignore internal integration tests
-/Adb/Tests/Integration/Arcade.Tests.ps1
+/Adb/Tests/Integration/**
