@@ -1,6 +1,14 @@
-# Ignore project files
-/bin/
-/tst/
+# Module assemblies
+**/Assemblies/*.dll
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio cache, packages
+.vs/
+**/packages/*
 
 # Ignore internal integration tests
 /Modules/Adb/Tests/Integration/Arcade.Tests.ps1
