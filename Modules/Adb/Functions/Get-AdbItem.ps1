@@ -7,42 +7,41 @@
 #>
 function Get-AdbItem
 {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'Name')]
     param
     (
         # The adb session.
         [Parameter(Mandatory = $false)]
         [PSTypeName('Adb.Session')]
-        [System.Object]
         $Session,
 
         # The resource name.
-        [Parameter(Mandatory = $true)]
-        [System.String]
+        [Parameter(Mandatory = $true, Position = 0, ParameterSetName = 'Name')]
+        [System.String[]]
         $Name,
 
         # Specify how the items are sort.
-        [Parameter(Mandatory = $false)]
-        [System.String]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
+        [System.Collections.Hashtable]
         $Filter,
 
         # Specify how the items are sort.
-        [Parameter(Mandatory = $false)]
-        [System.String]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
+        [System.String[]]
         $Sort,
 
         # Specified the fields to return.
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
         [System.String[]]
         $Field,
 
         # Option to limit the number of return objects.
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
         [System.Int32]
         $Limit,
 
         # Option to skip the specified number of first objects.
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
         [System.Int32]
         $Skip
     )

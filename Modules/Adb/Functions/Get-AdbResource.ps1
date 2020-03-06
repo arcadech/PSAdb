@@ -19,48 +19,47 @@
 #>
 function Get-AdbResource
 {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'Name')]
     param
     (
         # The adb session.
         [Parameter(Mandatory = $false)]
         [PSTypeName('Adb.Session')]
-        [System.Object]
         $Session,
 
         # The resource type to query.
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, Position = 0)]
         [ValidateSet('Item', 'Property', 'Template', 'User', 'TokenRequest')]
         [System.String]
         $Type,
 
         # The resource name.
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, Position = 1, ParameterSetName = 'Name')]
         [System.String[]]
         $Name,
 
         # Specify how the items are sort.
-        [Parameter(Mandatory = $false)]
-        [System.String]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
+        [System.Collections.Hashtable]
         $Filter,
 
         # Specify how the items are sort.
-        [Parameter(Mandatory = $false)]
-        [System.String]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
+        [System.String[]]
         $Sort,
 
         # Specified the fields to return.
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
         [System.String[]]
         $Field,
 
         # Option to limit the number of return objects.
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
         [System.Int32]
         $Limit,
 
         # Option to skip the specified number of first objects.
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = 'List')]
         [System.Int32]
         $Skip
     )
@@ -83,7 +82,7 @@ function Get-AdbResource
     {
         foreach ($currentName in $Name)
         {
-            if ($PSBoundParameters.ContainsKey('Name'))
+            if ($PSCmdlet.ParameterSetName -eq 'Name')
             {
                 $uri = '{0}/{1}/{2}' -f $Session.Uri, $adbType, $currentName
             }
@@ -94,7 +93,10 @@ function Get-AdbResource
                 # Append all optional paramters as http query
                 if ($PSBoundParameters.ContainsKey('Filter'))
                 {
-                    $query += 'filter={0}' -f $Filter
+                    foreach ($filterKey in $Filter.Keys)
+                    {
+                        $query += '{0}={1}' -f $filterKey, $Filter[$filterKey]
+                    }
                 }
                 if ($PSBoundParameters.ContainsKey('Sort'))
                 {
