@@ -3,7 +3,7 @@
         Get the current adb user.
 
     .DESCRIPTION
-        Reutrn a custom object with the adb user and token information.
+        Return a custom object with the adb user and token information.
 #>
 function Get-AdbUser
 {
