@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is mainly based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+* Added: Add command to get the current session
+
 ## 1.2.0 - 2020-03-06
 
 * Changed: Add parameter sets to Get-AdbItem command to allow filtering

@@ -67,6 +67,7 @@
     FunctionsToExport = @(
         'Connect-AdbServer'
         'Disconnect-AdbServer'
+        'Get-AdbSession'
         'Get-AdbResource'
         'Set-AdbResource'
         'New-AdbResource'
