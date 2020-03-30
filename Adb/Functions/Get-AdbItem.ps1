@@ -3,7 +3,7 @@
         Get an item from the adb.
 
     .DESCRIPTION
-        Reutrn a custom object with the adb user and token information.
+        Return a custom object with the adb user and token information.
 #>
 function Get-AdbItem
 {
