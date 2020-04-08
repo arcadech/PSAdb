@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 
 * Added: Add command to get the current session
+* Added: Commands to update (incl. add) and remove item properties
 
 ## 1.2.0 - 2020-03-06
 

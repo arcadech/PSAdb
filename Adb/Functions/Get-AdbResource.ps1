@@ -80,44 +80,49 @@ function Get-AdbResource
 
     process
     {
-        foreach ($currentName in $Name)
+        $uris = @()
+
+        if ($PSCmdlet.ParameterSetName -eq 'Name')
         {
-            if ($PSCmdlet.ParameterSetName -eq 'Name')
+            foreach ($currentName in $Name)
             {
-                $uri = '{0}/{1}/{2}' -f $Session.Uri, $adbType, $currentName
+                $uris += '{0}/{1}/{2}' -f $Session.Uri, $adbType, $currentName
             }
-            else
+        }
+        else
+        {
+            $query = @()
+
+            # Append all optional paramters as http query
+            if ($PSBoundParameters.ContainsKey('Filter'))
             {
-                $query = @()
-
-                # Append all optional paramters as http query
-                if ($PSBoundParameters.ContainsKey('Filter'))
+                foreach ($filterKey in $Filter.Keys)
                 {
-                    foreach ($filterKey in $Filter.Keys)
-                    {
-                        $query += '{0}={1}' -f $filterKey, $Filter[$filterKey]
-                    }
+                    $query += '{0}={1}' -f $filterKey, $Filter[$filterKey]
                 }
-                if ($PSBoundParameters.ContainsKey('Sort'))
-                {
-                    $query += 'sort={0}' -f ($Sort -join ',')
-                }
-                if ($PSBoundParameters.ContainsKey('Field'))
-                {
-                    $query += 'fields={0}' -f ($Field -join ',')
-                }
-                if ($PSBoundParameters.ContainsKey('Limit'))
-                {
-                    $query += 'limit={0}' -f $Limit
-                }
-                if ($PSBoundParameters.ContainsKey('Skip'))
-                {
-                    $query += 'skip={0}' -f $Skip
-                }
-
-                $uri = '{0}/{1}/?{2}' -f $Session.Uri, $adbType, ($query -join '&')
+            }
+            if ($PSBoundParameters.ContainsKey('Sort'))
+            {
+                $query += 'sort={0}' -f ($Sort -join ',')
+            }
+            if ($PSBoundParameters.ContainsKey('Field'))
+            {
+                $query += 'fields={0}' -f ($Field -join ',')
+            }
+            if ($PSBoundParameters.ContainsKey('Limit'))
+            {
+                $query += 'limit={0}' -f $Limit
+            }
+            if ($PSBoundParameters.ContainsKey('Skip'))
+            {
+                $query += 'skip={0}' -f $Skip
             }
 
+            $uris += '{0}/{1}/?{2}' -f $Session.Uri, $adbType, ($query -join '&')
+        }
+
+        foreach ($uri in $uris)
+        {
             try
             {
                 Write-Verbose "Invoke query $Uri"

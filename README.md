@@ -62,6 +62,9 @@ Connect-AdbServer -Uri 'https://adb.contoso.com' -Guest
 # Store the adb session in a variable
 $adbSession = Connect-AdbServer -Uri 'https://adb.contoso.com' -Credential 'john' -PassThru
 
+# Get the current adb session
+$adbSession = Get-AdbSession
+
 # Logoff from the session stored in the module context
 Disconnect-AdbServer
 
