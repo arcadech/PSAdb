@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is mainly based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+* Added: Command to add a template to an adb item
+
 ## 1.3.0 - 2020-04-08
 
 * Added: Add command to get the current session

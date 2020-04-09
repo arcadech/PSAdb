@@ -79,6 +79,7 @@
         'Get-AdbItem'
         'Set-AdbItemProperty'
         'Remove-AdbItemProperty'
+        'Add-AdbItemTemplate'
         # Item Validation
         'Test-AdbItemValidation'
     )
