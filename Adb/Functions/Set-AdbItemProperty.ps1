@@ -13,7 +13,7 @@
         None
 
     .EXAMPLE
-        PS C:\> Set-AdbItem -Name 'myname' -Property 'myprop' -Value 'myvalue'
+        PS C:\> Set-AdbItemProperty -Name 'myname' -Property 'myprop' -Value 'myvalue'
         Update the item myname property myprop to the value myvalue.
 #>
 function Set-AdbItemProperty
