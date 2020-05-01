@@ -67,17 +67,28 @@ function Test-AdbItemValidation
             }
             catch
             {
-                $errorMessage = $_.ErrorDetails.Message | ConvertFrom-Json | Select-Object -ExpandProperty 'error'
-
-                if ([System.String]::IsNullOrEmpty($errorMessage))
+                try
                 {
-                    $errorMessage = $_.ErrorDetails.Message
-                }
+                    $errorMessage = $_.ErrorDetails.Message | ConvertFrom-Json | Select-Object -ExpandProperty 'error'
 
-                $result = [PSCustomObject] @{
-                    Result     = $false
-                    Message    = $errorMessage
-                    Violations = $errorMessage.Split(([System.String[]] ', '), [System.StringSplitOptions]::None)
+                    if ([System.String]::IsNullOrEmpty($errorMessage))
+                    {
+                        $errorMessage = $_.ErrorDetails.Message
+                    }
+
+                    $result = [PSCustomObject] @{
+                        Result     = $false
+                        Message    = $errorMessage
+                        Violations = $errorMessage.Split(([System.String[]] ', '), [System.StringSplitOptions]::None)
+                    }
+                }
+                catch
+                {
+                    $result = [PSCustomObject] @{
+                        Result     = $false
+                        Message    = "Internal Item Validation Error: $_"
+                        Violations = "Internal Item Validation Error: $_"
+                    }
                 }
             }
 

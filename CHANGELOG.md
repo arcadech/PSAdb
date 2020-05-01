@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is mainly based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+* Fixed: If the validation parsing has an error, don't throw but return false
+
 ## 1.4.0 - 2020-04-09
 
 * Added: Command to add and remove templates from the adb item
