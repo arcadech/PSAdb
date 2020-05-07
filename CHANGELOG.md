@@ -1,11 +1,11 @@
-# Changelog
+﻿# Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is mainly based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 1.4.1 - 2020-05-07
 
 * Fixed: If the validation parsing has an error, don't throw but return false
 
