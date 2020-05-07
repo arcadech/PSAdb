@@ -10,5 +10,8 @@
 .vs/
 **/packages/*
 
+# Temporary debug files
+.debug.*.ps1
+
 # Ignore internal integration tests
 /Adb/Tests/Integration/**
