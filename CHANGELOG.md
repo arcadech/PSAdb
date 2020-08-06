@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is mainly based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 1.4.2 - 2020-08-06
 
 * Fixed: Optimize validation parsing for not found items (http 404)
 
