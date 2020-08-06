@@ -65,30 +65,49 @@ function Test-AdbItemValidation
                     Violations = @()
                 }
             }
-            catch
+            catch [System.Net.WebException]
             {
-                try
+                if ($_.Exception.Response.StatusCode -eq 'NotFound')
                 {
-                    $errorMessage = $_.ErrorDetails.Message | ConvertFrom-Json | Select-Object -ExpandProperty 'error'
-
-                    if ([System.String]::IsNullOrEmpty($errorMessage))
-                    {
-                        $errorMessage = $_.ErrorDetails.Message
-                    }
-
                     $result = [PSCustomObject] @{
                         Result     = $false
-                        Message    = $errorMessage
-                        Violations = $errorMessage.Split(([System.String[]] ', '), [System.StringSplitOptions]::None)
+                        Message    = 'Item {0} not found!' -f $currentName
+                        Violations = @()
                     }
                 }
-                catch
+                else
                 {
-                    $result = [PSCustomObject] @{
-                        Result     = $false
-                        Message    = "Internal Item Validation Error: $_"
-                        Violations = "Internal Item Validation Error: $_"
+                    try
+                    {
+                        $errorMessage = $_.ErrorDetails.Message | ConvertFrom-Json | Select-Object -ExpandProperty 'error'
+
+                        if ([System.String]::IsNullOrEmpty($errorMessage))
+                        {
+                            $errorMessage = $_.ErrorDetails.Message
+                        }
+
+                        $result = [PSCustomObject] @{
+                            Result     = $false
+                            Message    = $errorMessage
+                            Violations = $errorMessage.Split(([System.String[]] ', '), [System.StringSplitOptions]::None)
+                        }
                     }
+                    catch
+                    {
+                        $result = [PSCustomObject] @{
+                            Result     = $false
+                            Message    = "Internal Item Validation Error: $_"
+                            Violations = @()
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                $result = [PSCustomObject] @{
+                    Result     = $false
+                    Message    = "Unknown Item Validation Error: $_"
+                    Violations = @()
                 }
             }
 
