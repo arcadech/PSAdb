@@ -4,6 +4,14 @@
 
     .DESCRIPTION
         Return a custom object with the adb user and token information.
+
+    .EXAMPLE
+        PS C:\> Get-AdbItem -Name 'g_mygroup'
+        Get the adb item with the name g_mygroup.
+
+    .EXAMPLE
+        PS C:\> Get-AdbItem -Filter @{ 'GitHub Autopilot' = '/^g_my/' }
+        Get all the adb items with the name starting with g_my.
 #>
 function Get-AdbItem
 {
